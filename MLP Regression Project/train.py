@@ -1,17 +1,14 @@
 #Define a train and validation function
+import data_handler as dh
+import models as mod
 
-import torch
+X_train, X_test, y_train, y_test = dh.build_dataset("data/insurance.csv", 8)
 
-best_val_loss = 100000
+print(X_train.shape, X_test.shape, y_train.shape, y_test.shape)
 
+for epochs in range(2):
+    X_train_batch, X_test_batch, y_train_batch, y_test_batch = dh.to_batches(X_train, X_test, y_train, y_test, 8)
 
-with torch .no_grad():
-    val_loss = 10
-    for i in range(10):
-        print(i)
-
-    if val_loss < best_val_loss:
-        torch.save(model, "name.pth")
-        best_val_loss = val_loss
-
+    mod.MLP.forward(X_train_batch)
     
+
