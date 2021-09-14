@@ -1,10 +1,7 @@
 import mediapipe as mp
 import cv2
 
-import sys
-
-
-import processing_df_image as pdi
+# import processing_df_image as pdi
 import time
 import numpy as np
 import os
@@ -86,14 +83,17 @@ def transform_single_image(image, output_path=""):
                     # mp_drawing.draw_landmarks(image, hand_landmarks, mp_hands.HAND_CONNECTIONS)
                     black_image = np.zeros(image.shape)
                     mp_drawing.draw_landmarks(black_image, hand_landmarks, mp_hands.HAND_CONNECTIONS, landmark_drawing_spec=drawing_spec)
-                    crop = pdi.bbox_landmarks(hand_landmarks, black_image)
+                    crop = bbox_landmarks(hand_landmarks, black_image)
+                    # crop = pdi.bbox_landmarks(hand_landmarks, black_image)
                     kernel = np.ones((5, 5), np.uint8)
                     crop = cv2.dilate(crop, kernel, iterations = 10)
                     crop = np.float32(crop)
                     gray = cv2.cvtColor(255*crop, cv2.COLOR_BGR2GRAY)
                     crop = cv2.resize(gray, (32, 32)) 
-                    pdi.bbox_landmarks(hand_landmarks, image)
-                    loc_dict = pdi.landmark_xy(hand_landmarks, image)
+                    bbox_landmarks(hand_landmarks, image)
+                    # pdi.bbox_landmarks(hand_landmarks, image)
+                    loc_dict = landmark_xy(hand_landmarks, image)
+                    # loc_dict = pdi.landmark_xy(hand_landmarks, image)
                 except:
                     print("The hand is too close to the camera")
     try:
@@ -119,5 +119,3 @@ if __name__ == "__main__":
     if save:
         output = os.path.join(output_path, "cropped_"+image_path)
         cv2.imwrite(output, crop)
-
-      
