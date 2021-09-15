@@ -5,13 +5,17 @@ import torch.nn as nn
 import torch.nn.functional as F
 import torch.optim as optim
 import torch
-
+from torchvision.transforms.transforms import Grayscale
+from handgestures.transform_image import transform_single_image
+import numpy as np
+from PIL import Image
 
 def get_data():
     data_dir = '/Users/franciscovarelacid/Desktop/Strive/images_ml/'
     
     transform = transforms.Compose([
     transforms.Resize(128),
+    transforms.Grayscale(),
     transforms.ToTensor()])
 
     train_set = datasets.ImageFolder(data_dir + '/training_set', transform=transform)
@@ -40,7 +44,7 @@ train, test = get_data()
 class Net(nn.Module):
     def __init__(self):
         super(Net, self).__init__()
-        self.conv1 = nn.Conv2d(3, 6, 5)
+        self.conv1 = nn.Conv2d(1, 6, 5)
         self.pool = nn.MaxPool2d(8, 8)
         self.conv2 = nn.Conv2d(6, 16, 5)
         self.fc1 = nn.Linear(16, 100)
@@ -94,13 +98,14 @@ def train_net(n_epoch): # Training our network
     plt.show()
     print('Finished Training')
 
-train_net(10)
+# train_net(10)
 
 PATH = './RPS_net.pth'
 torch.save(net.state_dict(), PATH)
 
 # Loading the trained network
 net.load_state_dict(torch.load(PATH))
+net.eval()
 
 correct = 0
 total = 0
@@ -114,3 +119,28 @@ with torch.no_grad():
 
 print('Accuracy of the network on the %d test images: %d %%' % (len(test),
     100 * correct / total))
+
+# transform = transforms.Compose([
+#     transforms.Resize(128),
+#     transforms.ToTensor()])
+
+
+# Disable grad
+# with torch.no_grad():
+#     image = transform_single_image('handgestures/image.jpg')
+#     pil_image = Image.fromarray(image)
+#     img = transform(pil_image)
+
+#     # Generate prediction
+#     prediction = net(img)
+    
+#     # Predicted class value using argmax
+#     predicted_class = np.argmax(prediction)
+    
+#     # Reshape image
+#     image = image.reshape(28, 28, 1)
+    
+#     # Show result
+#     plt.imshow(image, cmap='gray')
+#     plt.title(f'Prediction: {predicted_class}')
+#     plt.show()

@@ -6,13 +6,18 @@ import json
 import joblib
 import numpy as np
 import pandas as pd
+import torch
+import torch.nn as nn
+import torch.optim as optim
 from sklearn.ensemble import RandomForestClassifier
+from pathlib import Path
+from main import Net
 
 import sys
-sys.path.append(r"/Users/franciscovarelacid/Desktop/Strive/strive-projects/Telegram_Bot_Project/RPS_CNN")
-from transform_image import transform_single_image
+sys.path.append("/Users/franciscovarelacid/Desktop/Strive/strive-projects/Telegram_Bot_Project/RPS_CNN/handgestures")
+from handgestures.transform_image import transform_single_image
 
-with open('RPS_CNN/static/config.json', 'r') as f:
+with open('static/config.json', 'r') as f:
  token = json.load(f)
 
 bot = telebot.TeleBot(token["telegramToken"])
@@ -51,26 +56,32 @@ def photo(message):
         new_file.write(downloaded_file)
 
     #Transform the Image into a Skeleton
-    img = transform_single_image(r'/Users/franciscovarelacid/Desktop/Strive/strive-projects/Telegram_Bot_Project/RPS_CNN')
-    print(img.shape)
+    img = transform_single_image("/Users/franciscovarelacid/Desktop/Strive/strive-projects/Telegram_Bot_Project/RPS_CNN/image.jpg")
+    img = torch.Tensor(img)
 
     #Transform the Skeleton into a flattened array
-    img_arr = np.array(img, dtype = int)
-    img_arr = img_arr.flatten()
-    class_data_trail= pd.DataFrame(img_arr)
-    class_data_trail=class_data_trail.transpose()
+    # img_arr = np.array(img, dtype = int)
+    # img_arr = img_arr.flatten()
+    # class_data_trail= pd.DataFrame(img_arr)
+    # class_data_trail=class_data_trail.transpose()
 
-    #import the model from best_model_2.sav
-    model_choice = 'RPS_net.pth'
-    loaded_model = joblib.load(model_choice)
+    #import the model from RPS_net.pth
+    save_path = 'RPS_net.pth'
+    # model = Net()
+    model = Net()
+    model.load_state_dict(torch.load(save_path, map_location=torch.device('cpu')))
+    model.eval()
 
-    #Predict the Input Image into a Class (Rock, Paper, or Scissors)
-    rps_class = loaded_model.predict(class_data_trail)
+    # Generate prediction
+    rps_class = model(img.reshape(1, 1, 128, 128))
 
-    if int(rps_class[0]) == 0:
+    # Predicted class value using argmax
+    predicted_class = np.argmax(rps_class.detach().numpy())
+
+    if predicted_class == 0:
       bot.send_message(message.chat.id, "You Give ROCK!")
       player_choice = 'rock'
-    elif int(rps_class[0]) == 1:
+    elif predicted_class == 1:
       bot.send_message(message.chat.id, "You Give PAPER!")
       player_choice = 'paper'  
     else:
@@ -117,8 +128,4 @@ def send_output(message):
       bot.send_message(message.chat.id, "PC wins!")
       
     
-
-
-
-
 bot.polling()

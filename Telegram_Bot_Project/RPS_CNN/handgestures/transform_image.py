@@ -89,7 +89,7 @@ def transform_single_image(image, output_path=""):
                     crop = cv2.dilate(crop, kernel, iterations = 10)
                     crop = np.float32(crop)
                     gray = cv2.cvtColor(255*crop, cv2.COLOR_BGR2GRAY)
-                    crop = cv2.resize(gray, (32, 32)) 
+                    crop = cv2.resize(gray, (128, 128)) 
                     bbox_landmarks(hand_landmarks, image)
                     # pdi.bbox_landmarks(hand_landmarks, image)
                     loc_dict = landmark_xy(hand_landmarks, image)
