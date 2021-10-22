@@ -1,4 +1,3 @@
-import math
 import numpy as np
 import matplotlib.pyplot as plt
 import cv2
@@ -72,6 +71,7 @@ def average_slope_intercept(image, lines):
     return np.array([left_line, right_line])
 
 
+###### FOR IMAGE TESTING #######
 
 test_image = cv2.imread('test_images/solidWhiteCurve.jpg')
 def main(image_img):
@@ -96,6 +96,8 @@ def main(image_img):
     return (final_img)
 
 
+
+###### FOR VIDEO TESTING #######
 
 cap = cv2.VideoCapture('test_videos/solidYellowLeft.mp4')
 
