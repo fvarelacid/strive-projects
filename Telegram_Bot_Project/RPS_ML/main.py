@@ -1,13 +1,9 @@
-import os
 import telebot
 import random
-import requests
 import json
 import joblib
 import numpy as np
 import pandas as pd
-from catboost import CatBoostClassifier
-from sklearn.ensemble import RandomForestClassifier
 
 import sys
 sys.path.append(r"C:\Users\ASUS\Documents\Codes\Telegram_Bot_RPS\handgestures")

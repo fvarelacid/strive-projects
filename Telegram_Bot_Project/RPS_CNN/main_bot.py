@@ -1,16 +1,8 @@
-import os
 import telebot
 import random
-import requests
 import json
-import joblib
 import numpy as np
-import pandas as pd
 import torch
-import torch.nn as nn
-import torch.optim as optim
-from sklearn.ensemble import RandomForestClassifier
-from pathlib import Path
 from main import Net
 
 import sys

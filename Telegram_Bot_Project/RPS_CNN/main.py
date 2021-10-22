@@ -5,10 +5,6 @@ import torch.nn as nn
 import torch.nn.functional as F
 import torch.optim as optim
 import torch
-from torchvision.transforms.transforms import Grayscale
-from handgestures.transform_image import transform_single_image
-import numpy as np
-from PIL import Image
 
 def get_data():
     data_dir = '/Users/franciscovarelacid/Desktop/Strive/images_ml/'
