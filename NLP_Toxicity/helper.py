@@ -34,11 +34,11 @@ def clean_text(text,remove_stopwords=True):
                 filtered_sent.append(lemmatizer.lemmatize(i))
         text = ','.join(filtered_sent)
     
-    # -- Removing numbers
+    # Removing numbers
     retokenizer1 = RegexpTokenizer(r'\D+') #remove numerical values
     text = ','.join(retokenizer1.tokenize(text))
     
-    # -- Removing punctuations
+    # Removing punctuations
     retokenizer2 = RegexpTokenizer(r'\w+') #remove numerical values
     text = ' '.join(retokenizer2.tokenize(text))
     
