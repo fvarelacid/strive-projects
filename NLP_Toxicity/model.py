@@ -1,36 +1,89 @@
+import pytorch_lightning as pl
+import torch
 import torch.nn as nn
-import torch.nn.functional as F
+from transformers import BertModel, AdamW
+from transformers import get_linear_schedule_with_warmup
+from torchmetrics.functional import auroc
 
 
-class BinaryModel(nn.Module):
-    def __init__(self):
-        super(BinaryModel, self).__init__()
-        self.fc1 = nn.Linear(150, 32) # 12 is the number of features
-        self.fc2 = nn.Linear(32, 64)
-        self.fc3 = nn.Linear(64, 128)
-        self.fc4 = nn.Linear(128, 256)
-        
-        # we will treat each head as a binary classifier ...
-        # ... so the output features will be 1
-        self.out1 = nn.Linear(256, 1)
-        self.out2 = nn.Linear(256, 1)
-        self.out3 = nn.Linear(256, 1)
-        self.out4 = nn.Linear(256, 1)
-        self.out5 = nn.Linear(256, 1)
-        self.out6 = nn.Linear(256, 1)
+BERT_MODEL_NAME = 'bert-base-uncased'
+LABEL_COLUMNS = ['toxic', 'severe_toxic', 'obscene', 'threat', 'insult', 'identity_hate']
+
+class ToxicCommentClassifier(pl.LightningModule):
+
+  def __init__(self, n_classes: int, n_training_steps=None, n_warmup_steps=None):
+    super().__init__()
+    self.bert = BertModel.from_pretrained(BERT_MODEL_NAME)
+    self.classifier = nn.Linear(self.bert.config.hidden_size, n_classes)
+    self.n_training_steps = n_training_steps
+    self.n_warmup_steps = n_warmup_steps
+    self.criterion = nn.BCELoss()
+
+  def forward(self, input_ids, attention_mask, labels=None):
+    output = self.bert(input_ids, attention_mask=attention_mask)
+    output = self.classifier(output.pooler_output)
+    output = torch.sigmoid(output)    
+    loss = 0
+    if labels is not None:
+        loss = self.criterion(output, labels)
+    return loss, output
+
+  def training_step(self, batch, batch_idx):
+    input_ids = batch["input_ids"]
+    attention_mask = batch["attention_mask"]
+    labels = batch["labels"]
+    loss, outputs = self(input_ids, attention_mask, labels)
+    self.log("train_loss", loss, prog_bar=True, logger=True)
+    return {"loss": loss, "predictions": outputs, "labels": labels}
+
+  def validation_step(self, batch, batch_idx):
+    input_ids = batch["input_ids"]
+    attention_mask = batch["attention_mask"]
+    labels = batch["labels"]
+    loss, outputs = self(input_ids, attention_mask)
+    self.log("val_loss", loss, prog_bar=True, logger=True)
+    return loss
+
+  def test_step(self, batch, batch_idx):
+    input_ids = batch["input_ids"]
+    attention_mask = batch["attention_mask"]
+    labels = batch["labels"]
+    loss, outputs = self(input_ids, attention_mask, labels)
+    self.log("test_loss", loss, prog_bar=True, logger=True)
+    return loss
+
+  def training_epoch_end(self, outputs):
     
-    def forward(self, x):
-        x = F.relu(self.fc1(x))
-        x = F.relu(self.fc2(x))
-        x = F.relu(self.fc3(x))
-        x = F.relu(self.fc4(x))
-        
-        # each binary classifier head will have its own output
-        out1 = F.sigmoid(self.out1(x))
-        out2 = F.sigmoid(self.out2(x))
-        out3 = F.sigmoid(self.out3(x))
-        out4 = F.sigmoid(self.out4(x))
-        out5 = F.sigmoid(self.out5(x))
-        out6 = F.sigmoid(self.out6(x))
-        
-        return out1, out2, out3, out4, out5, out6
+    labels = []
+    predictions = []
+    for output in outputs:
+      for out_labels in output["labels"].detach().cpu():
+        labels.append(out_labels)
+      for out_predictions in output["predictions"].detach().cpu():
+        predictions.append(out_predictions)
+
+    labels = torch.stack(labels).int()
+    predictions = torch.stack(predictions)
+
+    for i, name in enumerate(LABEL_COLUMNS):
+      class_roc_auc = auroc(predictions[:, i], labels[:, i])
+      self.logger.experiment.add_scalar(f"{name}_roc_auc/Train", class_roc_auc, self.current_epoch)
+
+
+  def configure_optimizers(self):
+
+    optimizer = AdamW(self.parameters(), lr=2e-5)
+
+    scheduler = get_linear_schedule_with_warmup(
+      optimizer,
+      num_warmup_steps=self.n_warmup_steps,
+      num_training_steps=self.n_training_steps
+    )
+
+    return dict(
+      optimizer=optimizer,
+      lr_scheduler=dict(
+        scheduler=scheduler,
+        interval='step'
+      )
+    )

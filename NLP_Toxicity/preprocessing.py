@@ -1,12 +1,9 @@
-import pandas as pd
 from helper import clean_text
 import spacy
 from spacy.language import Language
 from spacy_langdetect import LanguageDetector
-import torch
-from torch.utils.data import DataLoader, Dataset
-from tqdm import tqdm, tqdm_notebook
 from torchtext.vocab import FastText
+from dataset import encoder
 
 
 ##### Cleaning Text #####
@@ -33,24 +30,6 @@ def clean_non_en(dataf):
     dataf.drop(list_index, inplace=True)
     return dataf
 
-##### Token Encoder & Padding #####
-
-def token_encoder(token, vec):
-    if token == "<pad>":
-        return 1
-    else:
-        try:
-            return vec.stoi[token]
-        except:
-            return 0
-
-def encoder(tokens, vec):
-    return [token_encoder(token, vec) for token in tokens]
-
-def padding(list_of_indexes, max_seq_len, padding_index=1):
-    output = list_of_indexes + (max_seq_len - len(list_of_indexes))*[padding_index]
-    return output[:max_seq_len]
-
 
 ##### Cleaning Floats & Outlayers #####
 fasttext = FastText("simple")
@@ -61,6 +40,13 @@ def clean_floats_long(dataf):
         if (type(dataf["comment_text"][i]) == float) or (len(encoder(dataf["comment_text"][i], fasttext)) > 1000):
             list_index.append(i)
     dataf.drop(list_index, inplace=True)
-    dataf.reset_index(inplace=True)
-    dataf.drop(columns=['index'], inplace=True)
+    dataf.reset_index(inplace=True, drop=True)
     return dataf
+
+
+def text_preprocessing(df):
+    df = clean_floats_long(df)
+    df = text_clean(df)
+    df = clean_non_en(df)
+    df.reset_index(inplace=True, drop=True)
+    return df
