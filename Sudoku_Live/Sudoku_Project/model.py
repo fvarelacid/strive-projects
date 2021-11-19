@@ -16,14 +16,13 @@ input_size   = 784
 hidden_sizes = [128, 64]
 output_size  = 10
 
-def model(input_size, hidden_sizes, output_size):
-    """
-    Build a model with input_size, hidden_size, output_size
-    """
-    model = nn.Sequential(OrderedDict([
-          ('fc1', nn.Linear(input_size, hidden_sizes[0])),
-          ('relu1', nn.ReLU()),
-          ('fc2', nn.Linear(hidden_sizes[0], hidden_sizes[1])),
-          ('relu2', nn.ReLU()),
-          ('logits', nn.Linear(hidden_sizes[1], output_size))]))
-    return model
+class Model:
+    def build(input_size, hidden_sizes, output_size):
+
+        model    = nn.Sequential(OrderedDict([
+            ('fc1', nn.Linear(input_size, hidden_sizes[0])),
+            ('relu1', nn.ReLU()),
+            ('fc2', nn.Linear(hidden_sizes[0], hidden_sizes[1])),
+            ('relu2', nn.ReLU()),
+            ('logits', nn.Linear(hidden_sizes[1], output_size))]))
+        return model
