@@ -16,7 +16,7 @@ input_size   = 784
 hidden_sizes = [128, 64]
 output_size  = 10
 
-class Model:
+class Net:
     def build(input_size, hidden_sizes, output_size):
 
         model    = nn.Sequential(OrderedDict([
