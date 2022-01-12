@@ -2,7 +2,19 @@ import cv2 as cv
 import imutils
 import numpy as np
 from skimage.segmentation import clear_border
+import math
 
+
+def crop_img(img, ratio):
+	height = img.shape[0]
+	width = img.shape[1]
+
+	height_ratio = math.floor(height * ratio)
+	width_ratio = math.floor(width * ratio)
+
+	crop_img = img[height_ratio:height - height_ratio, width_ratio:width - width_ratio]
+
+	return crop_img
 
 def extract_digit(cell):
 	# apply automatic thresholding to the cell and then clear any
@@ -13,11 +25,12 @@ def extract_digit(cell):
     # find contours in the thresholded cell
     cnts = cv.findContours(thresh.copy(), cv.RETR_EXTERNAL, cv.CHAIN_APPROX_SIMPLE)
     cnts = imutils.grab_contours(cnts)
-	# if no contours were found than this is an empty cell
+
+	
     if len(cnts) == 0:
         return None
-	# otherwise, find the largest contour in the cell and create a
-	# mask for the contour
+	
+
     c = max(cnts, key=cv.contourArea)
     mask = np.zeros(thresh.shape, dtype="uint8")
     cv.drawContours(mask, [c], -1, 255, -1)
@@ -28,5 +41,11 @@ def extract_digit(cell):
         return None
 
     digit = cv.bitwise_and(thresh, thresh, mask=mask)
+    digit = crop_img(digit, 0.13)
+
+    _, digit = cv.threshold(digit, 200, 255, cv.THRESH_BINARY)
+    digit = digit.astype(np.uint8)
+    digit = cv.bitwise_not(digit)
+
 
     return digit

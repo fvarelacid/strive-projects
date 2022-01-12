@@ -131,3 +131,5 @@ dmypy.json
 *.msgpack
 *.vec
 *.pt
+*.png
+*.MOV
