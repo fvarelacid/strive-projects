@@ -1,4 +1,4 @@
-# Real Time Sudoku Solver
+# Live Sudoku Solver
 
 # 1/ Disclaimer:
 
