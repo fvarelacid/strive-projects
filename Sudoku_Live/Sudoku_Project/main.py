@@ -10,7 +10,7 @@ model.load_state_dict(torch.load('output/best_model.pt'))
 model.eval()
 
 ### Open Video Capture ###
-cap = cv.VideoCapture(0)
+cap = cv.VideoCapture("resources/videos/Sudoku_Video1.MOV")
 
 cv.namedWindow("Window")
 

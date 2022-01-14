@@ -12,7 +12,7 @@ def prepare_for_pred(img_array):
 	digit = cv.resize(img_array, (28, 28))
 	transform = transforms.Compose([
             transforms.ToTensor(),
-            transforms.Normalize((0.5), (0.5))])
+            transforms.Normalize((0.5,), (0.5,))])
 	digit = transform(digit)
 	digit = digit.unsqueeze(1)
 	return digit
@@ -159,6 +159,8 @@ def sudoku_finder(frame, model):
 		cellLocs.append(row)
 
 	board_copy = copy.deepcopy(board)
+
+	print(board_copy)
 
 	### Solve the Sudoku board
 	sudoku_solver.solve_sudoku(board)

@@ -31,4 +31,4 @@ class CNN(nn.Module):
         x = x.view(x.size(0), -1)       
         output = self.out1(x)
         output = self.out2(output)
-        return output
+        return output, x

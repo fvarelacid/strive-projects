@@ -19,7 +19,7 @@
     - Create images folder in the main project directory
     - Inside images folder create folder from "1" to "9" and copy the respective images
     - Run train.py
-    - Note: if you want to test the model just uncomment lines and in - train_loader = DataLoader(dataset, batch_size=128, shuffle=True) - substitute the first input to train_dataset. Also uncomment the everything from #Test the model below.
+    - Note: if you want to test the model just uncomment lines and in - train_loader = DataLoader(dataset, batch_size=128, shuffle=True) - substitute the first input to train_dataset. Also uncomment everything from #Test the model below.
 
 
 January 2022

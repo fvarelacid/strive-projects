@@ -1,14 +1,12 @@
 import cv2 as cv
-import numpy as np
 import glob
-import torch
-from torch.utils.data import Dataset, DataLoader
+from torch.utils.data import Dataset
 from torchvision import transforms
 
 
 class CustomDataset(Dataset):
     def __init__(self):
-        self.imgs_path = "74KFonts/"
+        self.imgs_path = "train_images/"
         file_list = glob.glob(self.imgs_path + "*")
         self.data = []
         for class_path in file_list:
@@ -19,7 +17,7 @@ class CustomDataset(Dataset):
         self.img_dim = (28, 28)
         self.transform = transforms.Compose([
             transforms.ToTensor(),
-            transforms.Normalize((0.5), (0.5))
+            transforms.Normalize((0.5,), (0.5,))
         ])
 
     def __len__(self):
