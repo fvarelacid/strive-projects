@@ -74,7 +74,7 @@ for epoch in range(epochs):
         
         loss.backward()
   
-        optimizer.step()                
+        optimizer.step()
         
         if (i+1) % 30 == 0:
             print ('Epoch [{}/{}], Step [{}/{}], Loss: {:.4f}' 

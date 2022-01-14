@@ -174,7 +174,7 @@ def sudoku_finder(frame, model):
 					continue
 				
 				startX, startY, endX, endY = box
-				textX = int((endX - startX) * 0.2)
+				textX = int((endX - startX) * 0.05)
 				textY = int((endY - startY) * -0.2)
 				textX += startX
 				textY += endY

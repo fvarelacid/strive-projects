@@ -41,7 +41,7 @@ def extract_digit(cell):
         return None
 
     digit = cv.bitwise_and(thresh, thresh, mask=mask)
-    digit = crop_img(digit, 0.13)
+    digit = crop_img(digit, 0.11)
 
     _, digit = cv.threshold(digit, 200, 255, cv.THRESH_BINARY)
     digit = digit.astype(np.uint8)
