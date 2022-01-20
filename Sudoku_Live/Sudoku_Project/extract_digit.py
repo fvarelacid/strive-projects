@@ -40,7 +40,7 @@ def extract_digit(cell):
     if percentFilled < 0.03:
         return None
 
-    digit = cv.bitwise_and(thresh, thresh, mask=mask)
+    digit = cv.bitwise_and(thresh, thresh   , mask=mask)
     digit = crop_img(digit, 0.11)
 
     _, digit = cv.threshold(digit, 200, 255, cv.THRESH_BINARY)
