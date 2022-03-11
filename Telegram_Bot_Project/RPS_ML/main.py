@@ -1,121 +1,142 @@
-import telebot
-import random
-import json
-import joblib
-import numpy as np
-import pandas as pd
+import matplotlib.pyplot as plt
+from torchvision import datasets, transforms
+from torch.utils.data import DataLoader
+import torch.nn as nn
+import torch.nn.functional as F
+import torch.optim as optim
+import torch
 
-import sys
-sys.path.append(r"C:\Users\ASUS\Documents\Codes\Telegram_Bot_RPS\handgestures")
-from handgestures.transform_image import transform_single_image
-
-with open("config.json") as f:
- token = json.load(f)
-
-bot = telebot.TeleBot(token["telegramToken"])
-x = bot.get_me()
-print(x)
-
-
-choices = ['rock', 'paper', 'scissors']
-computer_choice = random.choice(choices)
-
-
-@bot.message_handler(commands=['play'])
-def start(message):
-   bot.send_message(message.chat.id, '''Upload an Image of YOUR HAND showing one of the gestures:
-   -rock 
-   -paper
-   -scissors ''')
-
-def user_input(message):
-  request = message.text.lower()
-  if request not in ['rock', 'paper', 'scissors']:
-    return False
-  else:
-    return True
-
-@bot.message_handler(content_types=['photo'])
-def photo(message):
+def get_data():
+    data_dir = '/Users/franciscovarelacid/Desktop/Strive/images_ml/'
     
-    fileID = message.photo[-1].file_id
+    transform = transforms.Compose([
+    transforms.Resize(128),
+    transforms.Grayscale(),
+    transforms.ToTensor()])
+
+    train_set = datasets.ImageFolder(data_dir + '/training_set', transform=transform)
+    test_set = datasets.ImageFolder(data_dir + '/test_set', transform=transform)
+
+    train = DataLoader(train_set, batch_size=32, shuffle=True)
+    test = DataLoader(test_set, batch_size=32, shuffle=True)
+
+    return train, test
+
+def train_imshow():
+    classes = ('paper', 'rock', 'scissors') # Defining the classes we have
+    dataiter = iter(train)
+    images, labels = dataiter.next()
+    fig, axes = plt.subplots(figsize=(10, 4), ncols=5)
+    for i in range(5):
+        ax = axes[i]
+        ax.imshow(images[i].permute(1, 2, 0)) 
+        ax.title.set_text(' '.join('%5s' % classes[labels[i]]))
+    plt.show()
+
+train, test = get_data()
+
+# train_imshow()
+
+class Net(nn.Module):
+    def __init__(self):
+        super(Net, self).__init__()
+        self.conv1 = nn.Conv2d(1, 6, 5)
+        self.pool = nn.MaxPool2d(8, 8)
+        self.conv2 = nn.Conv2d(6, 16, 5)
+        self.fc1 = nn.Linear(16, 100)
+        self.fc2 = nn.Linear(100, 50)
+        self.fc3 = nn.Linear(50, 3)
+
+    def forward(self, x):
+        x = self.pool(F.relu(self.conv1(x)))
+        x = self.pool(F.relu(self.conv2(x)))
+        x = x.view(-1, 16)
+        x = F.relu(self.fc1(x))
+        x = F.relu(self.fc2(x))
+        x = self.fc3(x)
+        return x
+
+net = Net()
+
+criterion = nn.CrossEntropyLoss()
+optimizer = optim.SGD(net.parameters(), lr=0.01, momentum=0.9)
+if torch.cuda.is_available(): # Checking if we can use GPU
+    model = net.cuda()
+    criterion = criterion.cuda()
+
+
+def train_net(n_epoch): # Training our network
+    losses = []
+    for epoch in range(n_epoch):  # loop over the dataset multiple times
+        running_loss = 0.0
+        for i, data in enumerate(train, 0):
+            # get the inputs; data is a list of [inputs, labels]
+            inputs, labels = data
+
+            # zero the parameter gradients
+            optimizer.zero_grad()
+
+            # forward + backward + optimize
+            outputs = net(inputs)
+            loss = criterion(outputs, labels)
+            loss.backward()
+            optimizer.step()
+
+            # print statistics
+            losses.append(loss)
+            running_loss += loss.item()
+            if i % 100 == 0:  # print every 100 mini-batches
+                print('[%d, %5d] loss: %.10f' %
+                      (epoch + 1, i + 1, running_loss / 100))
+                running_loss = 0.0
+    losses_list = [fl.item() for fl in losses]
+    plt.plot(losses_list, label='Training loss')
+    plt.show()
+    print('Finished Training')
+
+# train_net(10)
+
+PATH = './RPS_net.pth'
+torch.save(net.state_dict(), PATH)
+
+# Loading the trained network
+net.load_state_dict(torch.load(PATH))
+net.eval()
+
+correct = 0
+total = 0
+with torch.no_grad():
+    for data in test:
+        images, labels = data
+        outputs = net(images)
+        _, predicted = torch.max(outputs.data, 1)
+        total += labels.size(0)
+        correct += (predicted == labels).sum().item()
+
+print('Accuracy of the network on the %d test images: %d %%' % (len(test),
+    100 * correct / total))
+
+# transform = transforms.Compose([
+#     transforms.Resize(128),
+#     transforms.ToTensor()])
+
+
+# Disable grad
+# with torch.no_grad():
+#     image = transform_single_image('handgestures/image.jpg')
+#     pil_image = Image.fromarray(image)
+#     img = transform(pil_image)
+
+#     # Generate prediction
+#     prediction = net(img)
     
-    file_info = bot.get_file(fileID)
+#     # Predicted class value using argmax
+#     predicted_class = np.argmax(prediction)
     
-    downloaded_file = bot.download_file(file_info.file_path)
-
-    with open("image.jpg", 'wb') as new_file:
-        new_file.write(downloaded_file)
-
-    #Transform the Image into a Skeleton
-    img = transform_single_image(r'C:\Users\ASUS\Documents\Codes\Telegram_Bot_RPS\image.jpg')
-    print(img.shape)
-
-    #Transform the Skeleton into a flattened array
-    img_arr = np.array(img, dtype = int)
-    img_arr = img_arr.flatten()
-    class_data_trail= pd.DataFrame(img_arr)
-    class_data_trail=class_data_trail.transpose()
-
-    #import the model from best_model_2.sav
-    model_choice = 'best_model_2.sav'
-    loaded_model = joblib.load(model_choice)
-
-    #Predict the Input Image into a Class (Rock, Paper, or Scissors)
-    rps_class = loaded_model.predict(class_data_trail)
-
-    if int(rps_class[0]) == 0:
-      bot.send_message(message.chat.id, "You Give ROCK!")
-      player_choice = 'rock'
-    elif int(rps_class[0]) == 1:
-      bot.send_message(message.chat.id, "You Give PAPER!")
-      player_choice = 'paper'  
-    else:
-      bot.send_message(message.chat.id, "You Give SCISSORS!")
-      player_choice = 'scissors'
-
-    computer_choice = random.choice(choices)
-
-    bot.send_message(message.chat.id,"PC picked: %s" % computer_choice)  
-
-    if player_choice == computer_choice:
-      bot.send_message(message.chat.id, "It's a Tie")      
-    elif player_choice == 'rock' and computer_choice == 'scissors':
-      bot.send_message(message.chat.id, "Player wins!")
-    elif player_choice == 'scissors' and computer_choice == 'paper':
-      bot.send_message(message.chat.id, "Player wins!")
-    elif player_choice == 'paper' and computer_choice == 'rock':
-      bot.send_message(message.chat.id, "Player wins!")
-    else:
-      bot.send_message(message.chat.id, "PC wins!")  
-
-
-
-
-
-
-
-@bot.message_handler(func=user_input)
-def send_output(message):
-  player_choice = message.text.lower()
-
-  computer_choice = random.choice(choices)
-
-  if player_choice == computer_choice:
-    bot.send_message(message.chat.id, "It's a Tie")      
-  elif player_choice == 'rock' and computer_choice == 'scissors':
-      bot.send_message(message.chat.id, "Player wins!")
-  elif player_choice == 'scissors' and computer_choice == 'paper':
-      bot.send_message(message.chat.id, "Player wins!")
-  elif player_choice == 'paper' and computer_choice == 'rock':
-      bot.send_message(message.chat.id, "Player wins!")
-  else:
-      bot.send_message(message.chat.id,"PC picked: %s" % computer_choice)  
-      bot.send_message(message.chat.id, "PC wins!")
-      
+#     # Reshape image
+#     image = image.reshape(28, 28, 1)
     
-
-
-
-
-bot.polling()
+#     # Show result
+#     plt.imshow(image, cmap='gray')
+#     plt.title(f'Prediction: {predicted_class}')
+#     plt.show()
