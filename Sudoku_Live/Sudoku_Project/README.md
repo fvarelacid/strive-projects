@@ -1,5 +1,9 @@
 # Live Sudoku Solver
 
+Sudoku solver example...
+
+![demo gif](./resources/videos/backapp_scream.gif)
+
 # 1/ Disclaimer:
 
 - This project was build entirely by me for a final module project of Computer Vision at Epicode.
