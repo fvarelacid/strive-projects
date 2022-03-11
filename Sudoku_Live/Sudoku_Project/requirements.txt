@@ -1,0 +1,7 @@
+opencv-python
+torch
+torchvision
+sudoku_solver
+numpy
+scikit-image
+imutils
