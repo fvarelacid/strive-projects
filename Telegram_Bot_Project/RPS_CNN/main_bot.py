@@ -3,11 +3,11 @@ import random
 import json
 import numpy as np
 import torch
-from main import Net
-
-import sys
-sys.path.append("/Users/franciscovarelacid/Desktop/Strive/strive-projects/Telegram_Bot_Project/RPS_CNN/handgestures")
+from model import Net
 from handgestures.transform_image import transform_single_image
+import sys
+
+sys.path.append("/Users/franciscovarelacid/Desktop/Strive/strive-projects/Telegram_Bot_Project/RPS_CNN/handgestures")
 
 with open('static/config.json', 'r') as f:
  token = json.load(f)
