@@ -1,0 +1,7 @@
+torch
+matplotlib
+torchvision
+numpy
+python-telegram-bot
+mediapipe
+opencv-python
