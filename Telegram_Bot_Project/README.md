@@ -1,5 +1,8 @@
-Rock Paper Scissors Game in Telegram Bot
+# Rock Paper Scissors Game with Telegram Bot
 
+Here's me beating the bot:
+
+![demo gif](./images/rps_bot.gif)
 
 What's about: 
 Telegram Chatbot that plays Rock Paper Scissors with you.
@@ -7,18 +10,28 @@ Telegram Chatbot that plays Rock Paper Scissors with you.
 The user starts playing with the bot by sending an image of his own hand showing Rock, Paper or Scissors. The trained model will predict what
 is that image representing and return if the user won, tied or lost.
 
-This project was developed in 2 different ways but basically with the same result other than the accuracy of prediction.
+The data was trained on a convolutional neural network model.
 
-RPS_CNN - The data was trained on a convolutional neural network model.
+## How to run it with your bot:
 
-RPS_ML - The data was trained using a recursive machine learning model.
+1. Create a bot on telegram, follow this link: https://sendpulse.com/knowledge-base/chatbot/create-telegram-chatbot
 
-How to run it:
+2. Copy the token to the config.json file in the static folder
 
-1) Create a bot on telegram and use the token provided in main.py (RPS_ML) and main_bot.py (RPS_CNN)
-2) Find the bot in the telegram app
-3) Start playing
-4) Send an image of your hand with Rock, Paper or Scissors with a white background and about 30-50 cm from the camera
+3. Install requirements
+```
+pip install -r requirements.txt
+```
+
+4. Activate bot with script below
+```
+python main_bot.py
+```
+5. If you got something like this it means your bot is running!
+![Example Bot Running](./images/example_bot_run.gif)
+
+6. Start bot or type '/start' and good luck!
+![Good Luck](./images/good-luck-liam.gif.gif)
 
 
 Any questions?
