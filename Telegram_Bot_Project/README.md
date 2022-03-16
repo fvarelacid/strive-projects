@@ -28,10 +28,10 @@ pip install -r requirements.txt
 python main_bot.py
 ```
 5. If you got something like this it means your bot is running!
-![Example Bot Running](./images/example_bot_run.gif)
+![Example Bot Running](./images/example_bot_run.png)
 
 6. Start bot or type '/start' and good luck!
-![Good Luck](./images/good-luck-liam.gif.gif)
+![Good Luck](./images/good-luck-liam.gif)
 
 
 Any questions?
