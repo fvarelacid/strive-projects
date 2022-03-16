@@ -1,6 +1,4 @@
 import pandas as pd
-from dataset import BinaryDataset
-from model import BinaryModel
 from torch.utils.data import DataLoader
 from dataset import BinaryDataset, TrainData, structure_dataset
 from model import BinaryModel
