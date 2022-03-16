@@ -1,8 +1,7 @@
 import pytorch_lightning as pl
 import torch
 import torch.nn as nn
-from transformers import BertModel, AdamW
-from transformers import get_linear_schedule_with_warmup
+from transformers import BertModel, AdamW, get_linear_schedule_with_warmup
 from torchmetrics.functional import auroc
 
 
