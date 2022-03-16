@@ -1,0 +1,14 @@
+torch
+pandas
+transformers
+pythorch_lightning
+sckit-learn
+spacy
+torchtext
+spacy_langdetect
+torchmetrics
+simpletransformers
+logging
+numpy
+streamlit
+nltk
