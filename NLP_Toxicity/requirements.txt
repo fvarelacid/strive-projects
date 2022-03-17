@@ -1,14 +1,13 @@
 torch
 pandas
 transformers
-pythorch_lightning
-sckit-learn
+pytorch-lightning
+scikit-learn
 spacy
 torchtext
-spacy_langdetect
+spacy-langdetect
 torchmetrics
 simpletransformers
-logging
 numpy
 streamlit
 nltk
