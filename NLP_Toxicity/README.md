@@ -1,39 +1,30 @@
-# Rock Paper Scissors Game with Telegram Bot
+# NLP Toxicity Comment Prediction
 
-Here's me beating the bot:
+This is just an example. I'm not toxic:
 
-![demo gif](./images/rps_bot.gif)
+![demo gif](./images/Comment_Toxicity.gif)
 
 What's about: 
-Telegram Chatbot that plays Rock Paper Scissors with you.
+Toxicity comments prediction.
 
-The user starts playing with the bot by sending an image of his own hand showing Rock, Paper or Scissors. The trained model will predict what
-is that image representing and return if the user won, tied or lost.
+The user rights a comment and the model will predict if it's toxic and which classify it.
 
-The data was trained on a convolutional neural network model.
+The model is based on a pre trained Bert model.
 
-## How to run it with your bot:
+## How to run it:
 
-1. Create a bot on telegram, follow this link: https://sendpulse.com/knowledge-base/chatbot/create-telegram-chatbot
-
-2. Copy the token to the config.json file in the static folder
-
-3. Install requirements
+1. Install requirements
 ```
 pip install -r requirements.txt
 ```
 
-4. Activate bot with script below
+2. Run with Streamlit which will open a new tab in your browser
 ```
-python main_bot.py
+streamlit run main.py
 ```
-5. If you got something like this it means your bot is running!
+3. Input a comment and check for it's toxicity
 
-![Example Bot Running](./images/example_bot_run.png)
-
-6. Start bot or type '/start' and good luck!
-
-![Good Luck](./images/good-luck-liam.gif)
+![Good Luck](./images/kevin-hart-shocked.gif)
 
 
 Any questions?
