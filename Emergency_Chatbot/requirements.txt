@@ -1,0 +1,6 @@
+torch
+numpy
+nltk
+streamlit
+watchdog
+streamlit-chat
