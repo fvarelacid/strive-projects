@@ -116,4 +116,3 @@ file = "trained.pth"
 torch.save(data, file)
 
 print(f'training complete. file saved!')
-print('stuff')
