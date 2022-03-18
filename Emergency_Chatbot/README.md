@@ -1,15 +1,33 @@
-Emergency CHATBOT
+# Emergency Chatbot
+
+I needed help. And Gloria did help me:
+![demo gif](./images/em_chatbot.gif)
+
+## What's about: 
+A chatbot that helps people with medical emergencies and schedule appointments.
+
+I used an NLP model to predict what does the patient need using tags for it.
+I applied bag_of_words to index all the words in the intents.json file and exported the trained model weights.
 
 
-What's about: 
-A chatbot that helps people with medical emergencies.
+## How to run it:
 
-I used an NLP model to predict what does the patient need.
-I applied bag_of_words to index all the words in the intents.json file and export the trained model.
+1. Install requirements
+```
+pip install -r requirements.txt
+```
 
-How to run it:
-Run chat.py in terminal and engage with it.
+2. Run streamlit and ask for help or an appointment:
+```
+streamlit run chat.py
+```
+
+3. Start chatting with Gloria. The bot nurse.
+
 
 Any questions?
 
 Just hit me up.
+
+Francisco Varela Cid
+Jan 2022
