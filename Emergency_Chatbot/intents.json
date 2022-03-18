@@ -14,8 +14,7 @@
         "emergency"
       ],
       "responses": [
-        "Call Samaritans on 116 123",
-        "That's a shame, call 999 for advice."
+        "Please remain calm, I'll send an unit to your location right away."
       ]
     },
 
@@ -32,10 +31,13 @@
         "when",
         "time",
         "when is a doctor available",
-        "timeslots"
+        "timeslots",
+        "help me",
+        "I need help",
+        "quick help me"
       ],
       "responses": [
-        "would you like to schedule an appointment?"
+        "Would you like to schedule an appointment?"
       ]
     },
     {
@@ -43,7 +45,6 @@
       "patterns": [
         "Hi",
         "Hey",
-        "How are you",
         "Is anyone there?",
         "Hello",
         "Good day",
@@ -51,18 +52,31 @@
         "Good night"
       ],
       "responses": [
-        "Hey!",
-        "Hello, thanks for visiting",
         "Hi there, what can I do for you?",
         "Hi there, how can I help?",
-        "What's up?"
+        "Hi, how can I help?"
+      ]
+    },
+    {
+      "tag": "greeting2",
+      "patterns": [
+        "How are you",
+        "How's it going?",
+        "All good?",
+        "How are you doing?",
+        "How are you today?",
+        "How are you feeling?"
+      ],
+      "responses": [
+        "I'm doing great, thanks for asking! How can I help you?",
+        "I'm good thanks. What can I do for you?"
       ]
     },
     {
       "tag": "goodbye",
       "patterns": ["Bye", "See you later", "Goodbye"],
       "responses": [
-        "See you later, thanks for visiting",
+        "See you later, thanks for visiting!",
         "Have a nice day",
         "Bye! Come back again soon."
       ]
@@ -70,67 +84,19 @@
     {
       "tag": "thanks",
       "patterns": ["Thanks", "Thank you", "That's helpful", "Thank's a lot!"],
-      "responses": ["Happy to help!", "Any time!", "My pleasure"]
+      "responses": ["Happy to help!", "Any time!", "My pleasure!"]
     },
     {
-      "tag": "food",
-      "patterns": [
-        "Which hamburgers do you have?",
-        "What kinds of courses are there?",
-        "What do you cook?",
-        "Can I order a coke?",
-        "I'm hungry",
-        "We're starving",
-        "I'd like to have a pizza"
-      ],
-      "responses": [
-        "We sell pizza, hamburgers and tacos",
-        "We have coke and juice as beverage",
-        "May we offer you a slice of hot pizza?",
-        "Do you like tacos?",
-        "We're here for you."
-      ]
+      "tag": "affirmation",
+      "patterns": ["Yes", "Yes thanks","Yeah", "Yup thanks", "Please"],
+      "responses": ["We only have an opening for next week Monday at 10am. Shall I book it?"],
+      "responses2": ["The appointment is booked. You will get the confirmation email shortly. Do you need anything else?"] 
     },
     {
-      "tag": "payments",
-      "patterns": [
-        "Do you take credit cards?",
-        "Do you accept Mastercard?",
-        "Can I pay with Apple Pay or Paypal?",
-        "Can I pay with cash?"
-      ],
-      "responses": [
-        "We accept VISA, Mastercard and Paypal",
-        "We accept most major credit cards, and Paypal",
-        "We prefer not using cash."
-      ]
-    },
-    {
-      "tag": "delivery",
-      "patterns": [
-        "How long does delivery take?",
-        "How long does shipping take?",
-        "When do I get my delivery?"
-      ],
-      "responses": [
-        "Delivery takes 15-20 min, depending on the traffic",
-        "The deliverer will be there in a few minutes. Stay hungry!",
-        "Don't worry, we're very quick!"
-      ]
-    },
-    {
-      "tag": "miscellaneous",
-      "patterns": [
-        "Tell me a joke!",
-        "Tell me something funny!",
-        "Let me laugh!"
-      ],
-      "responses": [
-        "Why did the hipster burn his mouth? He drank the coffee before it was cool.",
-        "What did the buffalo say when his son left for college? Bison.",
-        "Why do bees have sticky hair? Because they use honeycombs",
-        "Hear about the new restaurant called 'Karma'? There's no menu: you get what you deserve."
-      ]
+      "tag": "negation",
+      "patterns": ["No thanks", "Nope, thanks", "Nah", "That doesn't work for me."],
+      "responses": ["Ok. I'm sorry. What else can I do for you?", "Sorry. Anything else?"],
+      "responses2": ["Glad I could help! Get better!"]
     }
   ]
 }
