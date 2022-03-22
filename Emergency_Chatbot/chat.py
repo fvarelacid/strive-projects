@@ -79,8 +79,9 @@ if user_input:
     prob = probs[0][predicted.item()]
 
     print("Tag: ", tag)
+    print("Probability: ", prob)
 
-    if prob.item() > 0.75:
+    if prob.item() > 0.8:
         for intent in intents['intents']:
             if tag == intent['tag']:
                 if prev_tag == "appointment" and tag == "affirmation":
