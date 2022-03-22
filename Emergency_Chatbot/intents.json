@@ -95,7 +95,7 @@
     {
       "tag": "negation",
       "patterns": ["No thanks", "Nope, thanks", "Nah", "That doesn't work for me."],
-      "responses": ["Ok. I'm sorry. What else can I do for you?", "Sorry. Anything else?"],
+      "responses": ["Ok. I'm sorry. What else can I do for you?", "Sorry about that. What else I can do for you?"],
       "responses2": ["Glad I could help! Get better!"]
     }
   ]
