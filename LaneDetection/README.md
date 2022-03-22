@@ -27,7 +27,7 @@ python main.py
 
 This code is the base for this application:
 
-![Self Driving Car](./images/calculations.gif)
+![Self Driving Car](./images/self_driving.gif)
 
 
 Any questions?
