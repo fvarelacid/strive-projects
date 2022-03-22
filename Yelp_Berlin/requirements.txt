@@ -1,0 +1,8 @@
+streamlit
+numpy
+pandas
+bs4
+seaborn
+matplotlib
+tqdm
+selenium
