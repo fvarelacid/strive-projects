@@ -6,7 +6,7 @@ other_win_subcategory = 'Zoo'
 count_businesses = 755
 
 
-st.title('Investment Analysis for Businesses in Berlin - using Yelp')
+st.title('Investment Analysis for Businesses in Berlin - using Yelp.com')
 
 st.write('How many businesses did we take into consideration? *{count_businesses}*'.format(count_businesses=count_businesses))
 st.subheader('We will present the best option for each main sub-category')
