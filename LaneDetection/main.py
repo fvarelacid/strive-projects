@@ -71,9 +71,7 @@ def average_slope_intercept(image, lines):
     return np.array([left_line, right_line])
 
 
-###### FOR IMAGE TESTING #######
 
-test_image = cv2.imread('test_images/solidWhiteCurve.jpg')
 def main(image_img):
     lane_img = np.copy(image_img)
 
@@ -96,6 +94,18 @@ def main(image_img):
     return (final_img)
 
 
+###### FOR IMAGE TESTING ####### (uncomment to test)
+
+# test_image = cv2.imread('test_images/solidWhiteCurve.jpg')
+
+# while True:
+#     cv2.imshow('test_image', main(test_image))
+#     if cv2.waitKey(1) & 0xFF == ord('q'):
+#         break
+
+# cv2.destroyAllWindows()
+
+
 
 ###### FOR VIDEO TESTING #######
 
@@ -108,7 +118,7 @@ while(cap.isOpened()):
     #cv2.setWindowProperty("window",cv2.WND_PROP_FULLSCREEN,cv2.WINDOW_FULLSCREEN)
 
     if ret:
-        cv2.imshow('image',main(frame))
+        cv2.imshow('Lane Detection',main(frame))
     else:
        print('no video')
        cap.set(cv2.CAP_PROP_POS_FRAMES, 0)
