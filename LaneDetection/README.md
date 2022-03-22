@@ -1,6 +1,6 @@
 # Computer Vision for Lane Detection
 
-Demo gif (i'm not the driver):
+Demo gif (no, i'm not the driver):
 
 ![demo gif](./images/LaneDetection.gif)
 
@@ -25,7 +25,7 @@ pip install -r requirements.txt
 python main.py
 ```
 
-This code helps this type of applications:
+This code helps this type of applications (no, I'm not the driver):
 
 ![Self Driving Car](./images/self_driving.gif)
 
