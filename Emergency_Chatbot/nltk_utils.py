@@ -42,5 +42,3 @@ def bag_of_words(tokenized_sentence, words):
 
     return bag
 
-#print('stuff')
-
