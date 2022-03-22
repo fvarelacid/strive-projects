@@ -1,6 +1,6 @@
 # NLP Toxicity Comment Prediction
 
-This is just an example. I'm not toxic:
+This is just an example. I'm not toxic :)
 
 ![demo gif](./images/Comment_Toxicity.gif)
 
