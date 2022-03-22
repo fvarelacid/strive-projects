@@ -6,10 +6,10 @@ The conlusions:
 
 ## What's about: 
 Scrapped all business categories on yelp.com in Berlin to find the best type of 
-business to open.
+business to invest.
 
 ## Analysis Assumptions:
-- Using the Pareto Law we looked for:
+- Using Pareto Law we looked for:
     - The worst rated categories - High Opportunity of Improvement (unhappy clients)
 
     - The categories with the most reviews - High Demand
@@ -28,7 +28,7 @@ pip install -r requirements.txt
 ```
 streamlit run streamlit.py
 ```
-3. Check the conclusions.
+3. Check results and conclusions.
 
 ![Full brainer](./images/calculations.gif)
 
