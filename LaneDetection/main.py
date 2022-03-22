@@ -96,7 +96,7 @@ def main(image_img):
 
 ###### FOR IMAGE TESTING ####### (uncomment to test)
 
-# test_image = cv2.imread('test_images/solidWhiteCurve.jpg')
+# test_image = cv2.imread('test_images_videos/solidWhiteCurve.jpg')
 
 # while True:
 #     cv2.imshow('test_image', main(test_image))
@@ -109,7 +109,7 @@ def main(image_img):
 
 ###### FOR VIDEO TESTING #######
 
-cap = cv2.VideoCapture('test_videos/solidYellowLeft.mp4')
+cap = cv2.VideoCapture('test_images_videos/solidYellowLeft.mp4')
 
 while(cap.isOpened()):
 
