@@ -7,7 +7,8 @@ I needed help. And Gloria did help me:
 A chatbot that helps people with medical emergencies and schedule appointments.
 
 I used an NLP model to predict what does the patient need using tags for it.
-I applied bag_of_words to index all the words in the intents.json file and exported the trained model weights.
+
+I applied bag_of_words to index all the words in the intents.json file and exported the trained model weights as trained.pth.
 
 
 ## How to run it:
