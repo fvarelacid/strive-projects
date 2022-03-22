@@ -1,0 +1,127 @@
+category,count,average_stars,average_review_count
+German,35,4.202702702702703,95.24324324324324
+Modern European,14,4.392857142857143,84.21428571428571
+Burgers,18,4.166666666666667,182.94444444444446
+Asian Fusion,9,3.95,24.3
+Breakfast & Brunch,39,4.269230769230769,104.15384615384616
+Cafes,59,4.311475409836065,91.0
+Desserts,2,4.25,214.5
+International,8,4.4,79.5
+Sandwiches,11,4.363636363636363,58.72727272727273
+Ramen,15,3.933333333333333,34.2
+Arabian,4,4.5,77.0
+Takeaway & Fast Food,18,3.888888888888889,121.44444444444444
+Austrian,5,4.2,134.4
+American (Traditional),7,4.142857142857143,32.57142857142857
+Indian,9,4.388888888888889,99.11111111111111
+Pizza,64,4.1328125,51.484375
+Dim Sum,5,4.1,102.0
+Italian,184,4.255434782608695,37.03804347826087
+Bikes,1,4.833333333333333,25.333333333333332
+Mediterranean,14,4.535714285714286,29.071428571428573
+French,4,4.375,72.75
+Brasserie,2,4.25,109.0
+Chinese,27,3.925925925925926,50.22222222222222
+Soup,2,4.25,17.0
+Korean,12,4.25,76.75
+Seafood,4,4.375,40.0
+Fishmongers,1,4.5,116.0
+Fish & Chips,1,4.5,116.0
+Vegetarian,5,4.1,68.6
+Vegan,10,4.35,87.3
+Chocolate & Chocolatiers,2,4.5,188.5
+Swabian,2,4.25,112.0
+Japanese,46,4.021739130434782,29.608695652173914
+Cuban,1,4.5,63.0
+Cocktail Bars,25,3.7,42.4
+Cajun/Creole,1,4.5,63.0
+Wine Bars,18,4.305555555555555,53.44444444444444
+Flatbread,1,4.5,131.0
+BBQ & Barbecue,13,3.8846153846153846,70.15384615384616
+Bakeries,4,4.375,54.25
+Delicatessen,3,4.666666666666667,31.0
+Coffee & Tea Shops,12,4.291666666666667,93.91666666666667
+Mexican,66,3.356060606060606,38.484848484848484
+Steakhouses,17,3.7058823529411766,98.82352941176471
+Dive Bars,5,4.0,130.2
+Gastro Pubs,3,4.333333333333333,47.0
+Food Delivery,5,4.0,2.8
+Pan Asian,35,3.9615384615384617,49.97435897435897
+Themed Cafes,2,4.5,39.5
+Oriental,4,4.375,64.25
+Middle Eastern,3,4.4,74.0
+Thai,150,3.8466666666666667,27.253333333333334
+Persian/Iranian,2,4.5,61.0
+Laotian,1,4.0,30.0
+Chicken Shop,2,4.25,94.0
+Food Stands,15,4.166666666666667,189.66666666666666
+Kebab,6,4.416666666666667,201.5
+Vietnamese,67,4.007462686567164,54.298507462686565
+African,3,4.333333333333333,57.666666666666664
+Pancakes,1,5.0,1.0
+Pop-Up Restaurants,1,4.5,2.0
+Hot Dogs,1,4.0,42.0
+Greek,5,4.4,110.8
+Bagels,2,4.5,48.0
+Lebanese,4,4.375,115.75
+Indonesian,3,4.25,98.875
+Sushi,39,3.923076923076923,42.92307692307692
+Cupcakes,2,4.25,155.0
+Cake Shop & Patisserie Shops,4,4.25,121.25
+Social Clubs,1,5.0,16.0
+Lounges,4,4.0,53.25
+Venues & Event Spaces,2,5.0,3.5
+Brazilian,1,4.5,27.0
+Baden,1,4.0,174.0
+Waffles,1,4.0,49.0
+Spanish,4,4.0,45.75
+Portuguese,1,4.5,27.0
+Northern German,1,5.0,4.0
+Turkish,5,4.6,17.2
+Tapas Bars,6,4.25,14.666666666666666
+Juice Bar & Smoothies,4,3.75,8.25
+Latin American,2,4.5,12.5
+Beer Gardens,7,4.25,99.625
+Bars,19,4.028169014084507,63.183098591549296
+Georgian,1,4.0,26.0
+Jazz & Blues,1,4.0,80.0
+Tea Rooms,2,4.5,49.0
+Taiwanese,2,4.25,122.5
+Salad,1,4.5,17.0
+Bavarian,1,3.5,147.0
+Curry Sausage,4,4.0,321.0
+Polish,1,4.5,13.0
+International Grocery,1,4.5,13.0
+Beach Bars,1,3.0,62.0
+Diners,1,4.0,19.0
+Ice Cream & Frozen Yoghurt,4,4.375,167.75
+Falafel,2,4.25,170.5
+Breweries,2,4.5,114.5
+Sports Bars,1,4.5,144.0
+Brewpubs,1,4.5,104.0
+Distilleries,1,4.5,104.0
+Champagne Bars,1,4.5,111.0
+Local Flavour,1,4.5,162.0
+Baguettes,1,4.0,165.0
+Moroccan,1,4.0,183.0
+Bistros,4,4.375,47.0
+Coffee Roasteries,2,4.25,134.0
+Crepes,1,4.5,91.0
+Ethiopian,1,4.0,122.0
+Eastern German,1,4.0,156.0
+Tabletop Games,1,4.5,75.0
+Sweet Shops,1,4.5,65.0
+Russian,1,4.166666666666667,174.66666666666666
+Bowling,1,4.5,78.0
+Pakistani,1,4.25,105.5
+Tapas & Small Plates,2,4.125,29.25
+Tex-Mex,2,3.75,50.0
+Argentine,3,3.8333333333333335,15.0
+Gluten Free,1,4.5,53.0
+Off Licence,1,5.0,2.0
+Cafeterias,1,3.5,203.0
+Halal,1,3.0,8.0
+Buffet,1,4.0,9.0
+Botanical Gardens,1,4.5,79.0
+Himalayan/Nepalese,1,3.5,67.0
+Wok,1,3.5,33.0
