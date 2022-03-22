@@ -25,7 +25,7 @@ pip install -r requirements.txt
 python main.py
 ```
 
-This code helps this type of applications (no, I'm not the driver):
+This code helps this type of applications (no, I'm not the passenger):
 
 ![Self Driving Car](./images/self_driving.gif)
 
