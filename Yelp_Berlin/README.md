@@ -1,4 +1,4 @@
-# Investment Analysis for Businesses in Berlin - using Yelp
+# Investment Analysis for Businesses in Berlin - using Yelp.com
 
 The conlusions:
 
