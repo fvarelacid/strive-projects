@@ -26,7 +26,7 @@ streamlit run streamlit.py
 ```
 3. Check the plots and conclusions.
 
-![conclusions gif](./images/conclusions.gif)
+![calculations gif](./images/calculations.gif)
 
 
 Any questions?
