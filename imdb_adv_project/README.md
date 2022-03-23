@@ -1,5 +1,6 @@
 # IMDB Webscrapping Project
 
+
 ![plot image](./images/imdb_analysis.png)
 
 ## What's about: 
@@ -13,6 +14,8 @@ Data Analysis Goals:
 - Rating vs Box Office
 
 Many more analysis can be made with the data scrapped.
+
+This data analysis was created using Python, Streamlit, BeautifulSoup, Pandas, Matplotlib, and Seaborn.
 
 ## How to run it:
 
