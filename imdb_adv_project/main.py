@@ -1,7 +1,9 @@
 import requests
 from bs4 import BeautifulSoup
 import pandas as pd
-
+import matplotlib.pyplot as plt
+import seaborn as sns
+import streamlit as st
 
 page = requests.get("https://www.imdb.com/list/ls091520106/?st_dt=&mode=detail&page=1&sort=user_rating,desc&ref_=ttls_ref_gnr&genres=Adventure")
 
@@ -62,43 +64,90 @@ for value in values[2::3]:
 
 ######## Create Pandas DataFrame ########
 
-dataList = zip(movie_name, genre, desc, release_date, director, actors, rating, duration, gross)
+new_dir = []
+for dir in director:
+    dirTuple = tuple(dir)
+    new_dir.append(dirTuple)
+
+dataList = zip(movie_name, genre, desc, release_date, new_dir, actors, rating, duration, gross)
 movieData = pd.DataFrame(dataList, columns = ['Title', 'Genre', 'Summary', 'Release Date', 'Directors', 'Actors', 'Ratings', 'Duration', 'Gross Income'])
 
-print(movieData)
+movieData['Ratings'] = pd.to_numeric(movieData['Ratings'], downcast='float')
 
 
-movieData.head()
+##### STREAMLIT #####
+
+st.title('TOP Adventure Movies Data Analysis - Web Scraping from IMDB')
+
+st.write('This data analysis was created using Python, Streamlit, BeautifulSoup, Pandas, Matplotlib, and Seaborn.')
+
+st.subheader('Took into consideration the top 100 adventure movies.')
+
+#RATING vs DURATION
+
+if st.button('Rating vs Duration'):
+
+    st.write('The scatter plot below shows that longer movies were slightly more appreciated.')
+
+    fig = plt.figure(figsize=(10, 10))
+    plt.scatter(
+        x = movieData['Ratings'], 
+        y = movieData['Duration'], 
+        s=2000,
+        c="magenta", 
+        alpha=0.6, 
+        edgecolors="white", 
+        linewidth=2)
+
+    plt.xlabel('Ratings')
+    plt.ylabel('Duration')
+
+    st.pyplot(fig)
+
+    
 
 
-##### GRAPHS #####
+#RATING vs DIRECTOR
 
-#RATING + DURATION
-#CONCLUSION : IN ADVENTURE, LONGER MOVIES WERE SLIGHTLY MORE APPRECIATED
+if st.button('Rating vs Director'):
 
-
-plt.figure(figsize=(10, 10))
-plt.scatter(
-    x = movieData['Ratings'], 
-    y = movieData['Duration'], 
-    s=2000,
-    c="magenta", 
-    alpha=0.6, 
-    edgecolors="white", 
-    linewidth=2);
-
-plt.xlabel('Ratings')
-plt.ylabel('Duration')
+    st.write('Directors like Quentin Tarantino, Christopher Nolan and Sergio Leone have better ratings.')
+    fig = plt.figure(figsize=(10, 10))
+    movieData.groupby('Directors')['Ratings'].mean().plot(kind='bar', cmap='RdYlBu')
+    st.pyplot(fig)
 
 
-#RATING + DIRECTOR
+#RELEASE YEAR vs BOX OFFICE
 
-plt.figure(figsize=(10, 10))
-movieData.groupby('Directors')['Ratings'].nunique().plot(kind='bar', cmap='RdYlBu')
-plt.show()
+if st.button('Release Year vs Box Office'):
+
+    st.write("The plot below shows us that the gross income of this genre of movies has been increasing over the years.")
+
+    fig = plt.figure(figsize=(10, 10))
+    sns.scatterplot(data=movieData, x="Release Date", y="Gross Income", legend=False, s = 2000, cmap="Accent", alpha=0.7, edgecolors="grey", linewidth=2)
+
+    st.pyplot(fig)
 
 
-#RELEASE YEAR + BOX OFFICE
+#RATING vs RELEASE YEAR
 
-plt.figure(figsize=(10, 10))
-sns.scatterplot(data=movieData, x="Release Date", y="Gross Income", legend=False, s = 2000, cmap="Accent", alpha=0.7, edgecolors="grey", linewidth=2)
+if st.button('Rating vs Release Year'):
+
+    st.write("According to the plot below there's no clear correlation between the rating and the release year.")
+
+    fig = plt.figure(figsize=(10, 10))
+    movieData.groupby('Release Date')['Ratings'].mean().plot(kind='bar')
+
+    st.pyplot(fig)
+
+
+#RATING vs BOX OFFICE
+
+if st.button('Rating vs Box Office'):
+
+    st.write("We can see a slight increase on the box office with higher ratings but its not significant enough to be considered a correlation, since the movies with more gross income are not the best rated ones.")
+
+    fig = plt.figure(figsize=(10, 10))
+    sns.scatterplot(data=movieData, x="Ratings", y="Gross Income", legend=False, s = 2000, cmap="Accent", alpha=0.7, edgecolors="grey", linewidth=2)
+
+    st.pyplot(fig)
