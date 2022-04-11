@@ -1,8 +1,6 @@
-Rock Paper Scissors Game in Telegram Bot
 
 
-What's about: 
-Webscrapped the best adventure movies on IMDB.com with the goal to retreive some data analysis conclusions.
+
 
 Data Analysis Goals:
 - Rating vs Duration

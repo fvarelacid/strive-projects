@@ -79,8 +79,6 @@ movieData['Ratings'] = pd.to_numeric(movieData['Ratings'], downcast='float')
 
 st.title('TOP Adventure Movies Data Analysis - Web Scraping from IMDB')
 
-st.write('This data analysis was created using Python, Streamlit, BeautifulSoup, Pandas, Matplotlib, and Seaborn.')
-
 st.subheader('Took into consideration the top 100 adventure movies.')
 
 #RATING vs DURATION
