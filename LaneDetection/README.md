@@ -2,7 +2,7 @@
 
 Demo gif (no, i'm not the driver):
 
-![demo gif](./images/LaneDetection.gif)
+![demo gif](./images/lane_detection.gif)
 
 ## What's about: 
 Giving car camera frame this algorithm will identify the lane on the road.
