@@ -7,7 +7,7 @@ This is just an example. I'm not toxic :)
 What's about: 
 Toxicity comments prediction.
 
-The user rights a comment and the model will predict if it's toxic and which classify it.
+The user rights a comment and the model will predict if it's toxic and which types of toxicity.
 
 The model is based on a pre trained Bert model.
 
